@@ -25,7 +25,7 @@ SECRET_KEY = 'l_9c23jans+$t5svnyh)$n9-twzdd1hn0=o!oz&l&q$720e_a$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['snake.idv2.com']
 
 
 # Application definition
