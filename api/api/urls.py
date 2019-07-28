@@ -19,5 +19,5 @@ from api.boards import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home)
+    path('sentence', views.sentence),
 ]
