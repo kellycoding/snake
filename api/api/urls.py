@@ -19,5 +19,5 @@ from api.boards import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('sentence', views.sentence),
+    path('snake', views.getRandomSentence),
 ]

@@ -21,6 +21,11 @@ class Word(models.Model):
 	level = models.ForeignKey(Level, related_name='words', null=True, on_delete=models.SET_NULL)
 	proficiency = models.ForeignKey(Proficiency, related_name='words', null=True, on_delete=models.SET_NULL)
 
+# 形似字库
+class Homograph(models.Model):
+	word = models.ForeignKey(Word, related_name='homographs', on_delete=models.CASCADE)
+	name = models.CharField(max_length=20, unique=False)
+
 class Sentence(models.Model):
 	sentence = models.CharField(max_length=2000, unique=False)
 
