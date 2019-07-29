@@ -13,6 +13,9 @@ ground.src = "img/ground.png";
 const foodImage = new Image();
 foodImage.src = "img/food.png";
 
+const heartImage = new Image();
+heartImage.src = "img/heart.png";
+
 // load audio files
 const dead = new Audio();
 
@@ -81,6 +84,7 @@ function draw(){
 	}
 
 	ctx.drawImage(foodImage, food.x, food.y)
+	ctx.drawImage(heartImage,570,20)
 
 	// old head position
 	let snakeX =snake[0].x;
