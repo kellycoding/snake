@@ -16,10 +16,17 @@ foodImage.src = "img/food.png";
 const heartImage = new Image();
 heartImage.src = "img/heart.png";
 
+const bombImage = new Image();
+bombImage.src = "img/bomb.png";
+
 // load audio files
 const dead = new Audio();
 
 dead.src = "audio/dead.mp3"
+
+const explosion = new Audio();
+
+explosion.src = "audio/explbomb.wav"
 
 //create the snake
 
@@ -36,9 +43,20 @@ let food = {
 	y : Math.floor(Math.random()*15+3) * box
 }
 
+//create the bombs
+
+let bomb = {
+	x : Math.floor(Math.random()*17+1) * box,
+	y : Math.floor(Math.random()*15+3) * box
+}
+
 //create the score var
 
 let score = 0;
+
+//create the lives var
+
+let lives = 3;
 
 //control the snake
 
@@ -84,6 +102,7 @@ function draw(){
 	}
 
 	ctx.drawImage(foodImage, food.x, food.y)
+	ctx.drawImage(bombImage, bomb.x, bomb.y)
 	ctx.drawImage(heartImage,570,20)
 
 	// old head position
@@ -99,6 +118,10 @@ function draw(){
 	//if the snake eats the food
 	if(snakeX == food.x && snakeY == food.y){
 		score++;
+		bomb = {
+			x : Math.floor(Math.random()*17+1) * box,
+			y : Math.floor(Math.random()*15+3) * box
+		}
 		food = {
 			x : Math.floor(Math.random()*17+1) * box,
 			y : Math.floor(Math.random()*15+3) * box
@@ -116,6 +139,29 @@ function draw(){
 		y: snakeY
 	}
 
+	//if the snake touches the bomb
+	if(snakeX == bomb.x && snakeY == bomb.y){
+		lives--;
+		explosion.play();
+		food = {
+			x : Math.floor(Math.random()*17+1) * box,
+			y : Math.floor(Math.random()*15+3) * box
+		}
+		bomb = {
+			x : Math.floor(Math.random()*17+1) * box,
+			y : Math.floor(Math.random()*15+3) * box
+		}
+	}else{
+	}
+
+	//if lives run out
+	if(lives == 0){
+		clearInterval(game);
+		dead.play();
+	}else{
+	}
+
+
 	//game over
 
 	if(snakeX < box || snakeX > 17 * box || snakeY < 3*box || snakeY > 17*box || collision(newHead,snake)){
@@ -128,6 +174,7 @@ function draw(){
 	ctx.fillStyle = "white";
 	ctx.font = "45px Changa One";
 	ctx.fillText(score,2*box,1.6*box);
+	ctx.fillText(lives,17*box,1.6*box);
 }
 
 //call draw function every 100 ms
