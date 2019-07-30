@@ -1,5 +1,12 @@
 const cvs = document.getElementById("snake");
 const ctx = cvs.getContext("2d");
+const startGameButton = document.querySelector("#button"); startGameButton.addEventListener("click", start_game);
+const title = document.querySelector("#title")
+
+//start game
+function start_game(){
+	title.style.display = 'none'
+}
 
 //create the unit
 
