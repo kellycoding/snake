@@ -1,14 +1,12 @@
 const cvs = document.getElementById("snake");
 const ctx = cvs.getContext("2d");
-const startGameButton = document.querySelector("#button"); startGameButton.addEventListener("click", start_game);
+const startGameButton = document.querySelector("#start_game"); startGameButton.addEventListener("click", start_game);
 const title = document.querySelector("#title")
 
 //start game
 function start_game(){
 	title.style.display = 'none'
-}
-
-//create the unit
+	//create the unit
 
 const box = 32;
 
@@ -187,3 +185,5 @@ function draw(){
 //call draw function every 100 ms
 
 let game = setInterval(draw,100);
+}
+
