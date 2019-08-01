@@ -3,6 +3,8 @@
 	top: 0;
 	left: 0;
 	z-index: 100;
+	font-family: 'Lacquer', sans-serif;
+	margin-left: 600;
 }
 
  #snake { 
@@ -10,4 +12,19 @@
  	top: 0;
  	left: 0;
  	z-index: 1;
+ }
+
+ #start_game {
+ 	background-color: #72AD1F;
+ 	margin-top: 40;
+ 	border-color: #074A12;
+ 	font-size: 40;
+ 	color: white;
+ 	border-width: 10;
+ 	font-family: 'Lacquer', sans-serif;
+ }
+
+ h1 {
+ 	margin-top: 100;
+ 	font-size: 50;
  }
