@@ -33,6 +33,9 @@ const explosion = new Audio();
 
 explosion.src = "audio/explbomb.wav"
 
+const eat = new Audio();
+
+eat.src = "audio/eat.wav"
 //create the snake
 
 let snake = [];
@@ -123,6 +126,7 @@ function draw(){
 	//if the snake eats the food
 	if(snakeX == food.x && snakeY == food.y){
 		score++;
+		eat.play();
 		bomb = {
 			x : Math.floor(Math.random()*17+1) * box,
 			y : Math.floor(Math.random()*15+3) * box
