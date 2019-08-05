@@ -4,6 +4,33 @@ const startGameButton = document.querySelector("#start_game"); startGameButton.a
 const title = document.querySelector("#title")
 const gameover = document.querySelector("#gameover")
 
+var homographs = {}
+var key = ""
+var value = ""
+
+fetch ('http://snake.idv2.com/snake')
+	.then (
+		function(response) {
+			return response.json();
+		}
+	)
+
+	.then (
+		function(data) {
+			var sentence = data.sentence;
+			homographs = data.homographs;
+
+			var title = document.querySelector('#hint');
+			title.innerHTML = sentence;
+			console.log(homographs)
+
+			var keys = Object.keys(homographs);
+			key = keys[Math.floor(Math.random()*keys.length)];
+			value = homographs[key]
+
+		}
+	)
+
 //start game
 function start_game(){
 	title.style.display = 'none'
@@ -110,8 +137,11 @@ function start_game(){
 			ctx.strokeRect(snake[i].x,snake[i].y,box,box);
 		}
 
-		ctx.drawImage(foodImage, food.x, food.y)
-		ctx.drawImage(bombImage, bomb.x, bomb.y)
+		ctx.font = '28px Microsoft Yahei';
+		ctx.textBaseline = "top";
+		ctx.fillStyle = "white";
+		ctx.fillText(key, food.x, food.y);
+		ctx.fillText(value, bomb.x, bomb.y);
 		ctx.drawImage(heartImage,570,20)
 
 		// old head position
@@ -127,8 +157,14 @@ function start_game(){
 		//if the snake eats the food
 		if(snakeX == food.x && snakeY == food.y){
 			score++;
+
+			var keys = Object.keys(homographs);
+			key = keys[Math.floor(Math.random()*keys.length)];
+			value = homographs[key]
+
 			eat.play();
 			bomb = {
+
 				x : Math.floor(Math.random()*17+1) * box,
 				y : Math.floor(Math.random()*15+3) * box
 			}
@@ -152,6 +188,11 @@ function start_game(){
 		//if the snake touches the bomb
 		if(snakeX == bomb.x && snakeY == bomb.y){
 			lives--;
+
+			var keys = Object.keys(homographs);
+			key = keys[Math.floor(Math.random()*keys.length)];
+			value = homographs[key]
+
 			explosion.play();
 			food = {
 				x : Math.floor(Math.random()*17+1) * box,
@@ -186,8 +227,8 @@ function start_game(){
 
 		ctx.fillStyle = "white";
 		ctx.font = "45px Changa One";
-		ctx.fillText(score,2*box,1.6*box);
-		ctx.fillText(lives,17*box,1.6*box);
+		ctx.fillText(score,2*box,0.6*box);
+		ctx.fillText(lives,17*box,0.6*box);
 	}
 
 	//call draw function every 100 ms

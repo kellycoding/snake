@@ -36,6 +36,14 @@
  	font-family: 'Lacquer', sans-serif;
  }
 
+ #hint {
+ 	font-size: 50;
+ 	font-weight: bold;
+ 	border-width: 10px;
+ 	border-color: black;
+ 	border-style: solid;
+ }
+
  h1 {
  	margin-top: 100;
  	font-size: 50;
