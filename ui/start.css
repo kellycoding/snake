@@ -7,6 +7,18 @@
 	margin-left: 600;
 }
 
+#gameover {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 100;
+	display: none;
+	font-size: 40;
+	margin-left: 600;
+	margin-top: 100;
+	font-family: 'Lacquer', sans-serif;
+}
+
  #snake { 
  	position: absolute;
  	top: 0;
