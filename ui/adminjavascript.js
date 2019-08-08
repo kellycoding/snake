@@ -8,7 +8,9 @@ function submit() {
 	var homographs = form.homographs.value
 	var homo_chars = homographs.split("")
 
-	data = {char, level, progress, homo_chars}
+	var data = {char, level, progress, homo_chars}
+
+	console.log(JSON.stringify(data))
 
 }
 
