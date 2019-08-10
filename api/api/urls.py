@@ -19,5 +19,9 @@ from api.boards import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('snake', views.getRandomSentence),
+    path('snake/api/getRandomSentence', views.getRandomSentence),
+    path('snake/api/createWord', views.createWords),
+    path('snake/api/getLevels', views.getLevels),
+    path('snake/api/getProficiencies', views.getProficiencies),
+    path('snake/api/getWordFullList', views.getWordFullList),
 ]

@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-import random
-from .models import Sentence, Homograph, Word
+import random, json
+from .models import Sentence, Homograph, Word, Level, Proficiency
+from django.views.decorators.csrf import csrf_exempt
+from django.db import transaction
 
 # return sentence list
 """def sentence(request):
@@ -34,4 +36,51 @@ def getRandomSentence(request):
 
 	return JsonResponse(s)
 
+# log words from ui form
+@csrf_exempt
+@transaction.atomic
+def createWords(request):
+	if request.method=='POST':
+		received_json_data=json.loads(request.body)
+		#received_json_data = json.loads(request.body.decode("utf-8"))
 
+		word = received_json_data["char"]
+		level = received_json_data["level"]
+		progress = received_json_data["progress"]
+		newWord = Word.objects.create(name=word, level_id=level, proficiency_id=progress)
+
+		homographs = received_json_data["homo_chars"]
+
+		for i in range(0, len(homographs)):
+			homograph = Homograph.objects.create(word=newWord, name=homographs[i])
+
+		s = {'id': newWord.id }
+ 
+	return JsonResponse(s)
+
+# return level list
+def getLevels(request):
+	if request.method=='GET':
+		levels = Level.objects.all()
+
+		s = {'levels': [l.toJson() for l in levels]}
+
+	return JsonResponse(s)
+
+# return Proficiency list
+def getProficiencies(request):
+	if request.method =='GET':
+		proficiencies = Proficiency.objects.all()
+
+		s  = {'Proficiencies': [l.toJson() for l in proficiencies]}
+
+	return JsonResponse(s)
+
+# return word full list
+def getWordFullList(request):
+	if request.method == 'GET':
+		words = Word.objects.all()
+
+		s  = {'words': [l.toJson() for l in words]}
+
+	return JsonResponse(s)
