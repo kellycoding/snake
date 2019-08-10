@@ -84,3 +84,37 @@ def getWordFullList(request):
 		s  = {'words': [l.toJson() for l in words]}
 
 	return JsonResponse(s)
+
+# return word Proficiency in the snake game
+def updateProficiencyInSnake(request):
+	if request.method == 'POST':
+		received_json_data=json.loads(request.body)
+
+		words = received_json_data["words"]
+		for i in range(0, len(words)):
+			word = words[i][word]
+			count = words[i][count]
+
+			if word is not None and count is not None:
+				if count == 1 or count == -1:
+					wordObject = Word.objects.filter(name=word).first()
+					if wordObject is not None:
+						oldProficiency = Proficiency.objects.filter(count=wordObject.proficiency.count).first()
+						if oldProficiency is None:
+							newProficiency = Proficiency.objects.filter(count=0).first()
+						elif oldProficiency >= 0 and oldProficiency < 19:
+							newProficiency = Proficiency.objects.filter(count=wordObject.proficiency.count+count).first()
+							if newProficiency is not None:
+								wordObject.proficiency = newProficiency
+								wordObject.save()
+							else:
+								return HttpResponseBadRequest({"error": "update proficiency failded."})
+					else:
+						return HttpResponseBadRequest({"error": "invalid word."})
+				elif count == 0:
+					pass
+				else:
+					return HttpResponseBadRequest({"error": "invalid count."})
+			else:
+				return HttpResponseBadRequest({"error": "invalid word object."})
+

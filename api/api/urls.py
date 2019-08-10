@@ -24,4 +24,5 @@ urlpatterns = [
     path('snake/api/getLevels', views.getLevels),
     path('snake/api/getProficiencies', views.getProficiencies),
     path('snake/api/getWordFullList', views.getWordFullList),
+    path('snake/api/updateProficiencyInSnake', views.updateProficiencyInSnake)
 ]
