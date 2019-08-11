@@ -41,8 +41,8 @@ def getRandomSentence(request):
 @transaction.atomic
 def createWords(request):
 	if request.method=='POST':
-		received_json_data=json.loads(request.body)
-		#received_json_data = json.loads(request.body.decode("utf-8"))
+		#received_json_data=json.loads(request.body)
+		received_json_data = json.loads(request.body.decode("utf-8"))
 
 		word = received_json_data["char"]
 		level = received_json_data["level"]
