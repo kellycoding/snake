@@ -10,6 +10,19 @@ function submit() {
 
 	var data = {char, level, progress, homo_chars}
 
+	 return fetch("http://snake.idv2.com/snake/api/createWord",{
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        redirect: 'follow',
+        referrer: 'no-referrer',
+        body: JSON.stringify(data),
+    }).then (
+    	loadwords
+    )
+
 	console.log(JSON.stringify(data))
 
 }
@@ -21,7 +34,14 @@ function loadwords() {
 			return response.json();
 		}
 	).then(function(result) {
-		var tbody = document.querySelector("#tbody")
+		var tbody = document.querySelector("#tbody");
+
+		var child = tbody.lastElementChild;  
+        while (child) { 
+        	tbody.removeChild(child); 
+        	child = tbody.lastElementChild; 
+		}
+
 		for (var i = 0; i < result.words.length; i++) {
 			var word = result.words[i];
 
