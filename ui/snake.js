@@ -8,7 +8,7 @@ var homographs = {}
 var key = ""
 var value = ""
 
-fetch ('http://snake.idv2.com/snake')
+fetch ('http://snake.idv2.com/snake/api/getRandomSentence')
 	.then (
 		function(response) {
 			return response.json();
