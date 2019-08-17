@@ -15,7 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from api.boards import views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,4 +28,4 @@ urlpatterns = [
     path('snake/api/getProficiencies', views.getProficiencies),
     path('snake/api/getWordFullList', views.getWordFullList),
     path('snake/api/updateProficiencyInSnake', views.updateProficiencyInSnake)
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
