@@ -48,7 +48,7 @@ def createWords(request):
 		spell = received_json_data["spell"]
 		level = received_json_data["level"]
 		progress = received_json_data["progress"]
-		newWord = Word.objects.create(name=word, level_id=level, proficiency_id=progress)
+		newWord = Word.objects.create(name=word, spell=spell, level_id=level, proficiency_id=progress)
 
 		homographs = received_json_data["homo_chars"]
 
