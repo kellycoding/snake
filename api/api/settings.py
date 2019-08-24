@@ -126,5 +126,5 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'ui')
 
 STATICFILES_DIRS = [
-    os.path.join(os.path.dirname(BASE_DIR), 'ui')
+    # os.path.join(os.path.dirname(BASE_DIR), 'ui')
 ]
