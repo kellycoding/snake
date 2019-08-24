@@ -36,7 +36,7 @@ class Word(models.Model):
 
 	def toJson(self):
 		#print(self.homographs.all())
-		return {'id': self.id, 'name':self.name, 'level':self.level.toJson(), 'proficiency':self.proficiency.toJson()
+		return {'id': self.id, 'name':self.name, 'spell':self.spell, 'level':self.level.toJson(), 'proficiency':self.proficiency.toJson()
 				, 'homographs':[l.toJson() for l in self.homographs.all()]}
 
 

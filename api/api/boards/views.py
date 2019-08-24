@@ -122,7 +122,27 @@ def updateProficiencyInSnake(request):
 
 # return word for testing
 def getRandomWord(request):
-	word = Word.objects.order_by("?").first()
-	s = {'word': word.name}
+	if request.method == 'POST':
+		received_json_data=json.loads(request.body)
+
+		level = received_json_data["level"]
+		word = Word.objects.filter(level=level, proficiency<19).order_by("?").first()
+		s = {'word': word.name}
 
 	return JsonResponse(s)
+
+# update testing result
+def updateTestResult(request):
+	if request.method == 'POST':
+		received_json_data=json.loads(request.body)
+
+		word = received_json_data["word"]
+		wordObject = Word.objects.filter(name=word[word]).first()
+			if wordObject is not None and wordObject.proficiency >= 0: 
+				if wordObject.proficiency < 19:
+					wordObject.proficiency += 5
+				else:
+					# maxium level
+			else:
+				return HttpResponseBadRequest({"error": "invalid word."})
+
