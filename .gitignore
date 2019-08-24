@@ -3,3 +3,5 @@ __pycache__/
 log/
 run/
 .vscode/
+db.sqlite3
+

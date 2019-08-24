@@ -45,6 +45,7 @@ def createWords(request):
 		received_json_data = json.loads(request.body.decode("utf-8"))
 
 		word = received_json_data["char"]
+		spell = received_json_data["spell"]
 		level = received_json_data["level"]
 		progress = received_json_data["progress"]
 		newWord = Word.objects.create(name=word, level_id=level, proficiency_id=progress)
