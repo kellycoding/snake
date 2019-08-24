@@ -119,3 +119,10 @@ def updateProficiencyInSnake(request):
 			else:
 				return HttpResponseBadRequest({"error": "invalid word object."})
 
+
+# return word for testing
+def getRandomWord(request):
+	word = Word.objects.order_by("?").first()
+	s = {'word': word.name}
+
+	return JsonResponse(s)
