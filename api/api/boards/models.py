@@ -39,6 +39,9 @@ class Word(models.Model):
 		return {'id': self.id, 'name':self.name, 'spell':self.spell, 'level':self.level.toJson(), 'proficiency':self.proficiency.toJson()
 				, 'homographs':[l.toJson() for l in self.homographs.all()]}
 
+	def homograph_list(self):
+		return ''.join(h.name for h in self.homographs.all())
+
 
 # 形似字库
 class Homograph(models.Model):

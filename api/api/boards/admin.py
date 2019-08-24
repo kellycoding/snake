@@ -10,7 +10,7 @@ class ProficiencyAdmin(admin.ModelAdmin):
 admin.site.register(Proficiency, ProficiencyAdmin)
 
 class WordAdmin(admin.ModelAdmin):
-	list_display = ('id', 'spell', 'name', 'level', 'proficiency')		
+	list_display = ('id', 'spell', 'name', 'level', 'proficiency', 'homograph_list')		
 admin.site.register(Word, WordAdmin)
 
 class HomegraphAdmin(admin.ModelAdmin):
