@@ -1,3 +1,4 @@
+from django import forms
 from django.contrib import admin
 from .models import Level, Proficiency, Word, Homograph, Sentence
 
@@ -9,8 +10,30 @@ class ProficiencyAdmin(admin.ModelAdmin):
 	list_display = ('id', 'count', 'description')
 admin.site.register(Proficiency, ProficiencyAdmin)
 
+
+class WordAdminForm(forms.ModelForm):
+
+	homographs = forms.CharField()
+
+	def __init__(self, *args, **kwargs):
+		instance = kwargs.get('instance')
+		if instance:
+			self.base_fields['homographs'].initial = instance.homograph_list()
+		super().__init__(*args, **kwargs)
+
+	class Meta:
+		model = Word
+		fields = '__all__'
+
 class WordAdmin(admin.ModelAdmin):
-	list_display = ('id', 'spell', 'name', 'level', 'proficiency', 'homograph_list')		
+	form = WordAdminForm
+	list_display = ('id', 'spell', 'name', 'level', 'proficiency', 'homograph_list')
+
+	def save_model(self, request, obj, form, change):
+		homographs = form.cleaned_data['homographs']
+		obj.update_homographs(homographs)
+		obj.save()
+
 admin.site.register(Word, WordAdmin)
 
 class HomegraphAdmin(admin.ModelAdmin):

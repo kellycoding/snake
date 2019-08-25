@@ -42,6 +42,16 @@ class Word(models.Model):
 	def homograph_list(self):
 		return ''.join(h.name for h in self.homographs.all())
 
+	def update_homographs(self, hs):
+		for h in self.homographs.all():
+			if h.name in hs:
+				hs = hs.replace(h.name, '')
+				
+			else:
+				h.delete()
+
+		for w in hs:
+			Homograph.objects.create(name=w, word=self)
 
 # 形似字库
 class Homograph(models.Model):
