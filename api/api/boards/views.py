@@ -135,7 +135,8 @@ def updateTestResult(request):
 		received_json_data=json.loads(request.body)
 
 		word = received_json_data["word"]
-		wordObject = Word.objects.filter(name=word[word]).first()
+		spell = received_json_data["spell"]
+		wordObject = Word.objects.filter(name=word, spell=spell).first()
 		if wordObject is not None and wordObject.proficiency >= 0: 
 			if wordObject.proficiency < 19:
 				wordObject.proficiency += 5
