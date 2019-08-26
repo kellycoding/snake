@@ -130,6 +130,7 @@ def getRandomWord(request):
 	return JsonResponse(s)
 
 # update testing result
+@csrf_exempt
 def updateTestResult(request):
 	if request.method == 'POST':
 		received_json_data=json.loads(request.body)
