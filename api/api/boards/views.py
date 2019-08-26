@@ -133,7 +133,7 @@ def getRandomWord(request):
 @csrf_exempt
 def updateTestResult(request):
 	if request.method == 'POST':
-		received_json_data=json.loads(request.body)
+		received_json_data=json.loads(request.body.decode("utf-8"))
 
 		word = received_json_data["word"]
 		spell = received_json_data["spell"]
