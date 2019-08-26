@@ -124,8 +124,10 @@ def updateProficiencyInSnake(request):
 def getRandomWord(request):
 	if request.method == 'GET':
 		level = request.GET.get("level")
-		word = Word.objects.filter(level=level, proficiency__lt=19).order_by("?").first()
-		s = {'word': word.name}
+		word = Word.objects.filter(level=level, proficiency__count__lt=20).order_by("?").first()
+		completedWord = Word.objects.filter(level=level, proficiency__count=20)
+		s = {'word': word.name,
+			'completedWord': len(completedWord)}
 
 	return JsonResponse(s)
 
@@ -143,6 +145,6 @@ def updateTestResult(request):
 				newProficiency = wordObject.proficiency.count + 5
 				wordObject.proficiency_id = newProficiency + 1
 				wordObject.save()
-		else:
-			return HttpResponseBadRequest({"error": "invalid word."})
+
+		return JsonResponse({})
 
