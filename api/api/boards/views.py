@@ -138,9 +138,11 @@ def updateTestResult(request):
 		word = received_json_data["word"]
 		spell = received_json_data["spell"]
 		wordObject = Word.objects.filter(name=word, spell=spell).first()
-		if wordObject is not None and wordObject.proficiency >= 0: 
-			if wordObject.proficiency < 19:
-				wordObject.proficiency += 5
+		if wordObject is not None and wordObject.proficiency.count >= 0: 
+			if wordObject.proficiency.count < 20:
+				newProficiency = wordObject.proficiency.count + 5
+				wordObject.proficiency_id = newProficiency + 1
+				wordObject.save()
 		else:
 			return HttpResponseBadRequest({"error": "invalid word."})
 
