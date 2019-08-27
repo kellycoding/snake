@@ -66,4 +66,17 @@ class Sentence(models.Model):
 	sentence = models.CharField(max_length=2000, unique=False)
 
 
+# 词语库
+class Phrase(models.Model):
+	phrase = models.CharField(max_length=200, unique=False)
+	spell = models.CharField(max_length=200)
+	level = models.ForeignKey(Level, related_name='phrases', null=True, on_delete=models.SET_NULL)
+	proficiency = models.ForeignKey(Proficiency, related_name='phrases', null=True, on_delete=models.SET_NULL)
+
+	def toJson(self):
+		#print(self.homographs.all())
+		return {'id': self.id, 'name':self.phrase, 'spell':self.spell, 'level':self.level.toJson()
+					, 'proficiency':self.proficiency.toJson()
+				}
+
 

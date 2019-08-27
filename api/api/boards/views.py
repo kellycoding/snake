@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 import random, json
-from .models import Sentence, Homograph, Word, Level, Proficiency
+from .models import Sentence, Homograph, Word, Level, Proficiency, Phrase
 from django.views.decorators.csrf import csrf_exempt
 from django.db import transaction
 
@@ -131,7 +131,7 @@ def getRandomWord(request):
 
 	return JsonResponse(s)
 
-# update testing result
+# update word testing result
 @csrf_exempt
 def updateTestResult(request):
 	if request.method == 'POST':
@@ -145,6 +145,34 @@ def updateTestResult(request):
 				newProficiency = wordObject.proficiency.count + 5
 				wordObject.proficiency_id = newProficiency + 1
 				wordObject.save()
+
+		return JsonResponse({})
+
+# return phrase for testing
+def getRandomPhrase(request):
+	if request.method == 'GET':
+		level = request.GET.get("level")
+		phrase = Phrase.objects.filter(level=level, proficiency__count__lt=20).order_by("?").first()
+		completedPhrase = Phrase.objects.filter(level=level, proficiency__count=20)
+		s = {'phrase': phrase.phrase,
+			'completedPhrase': len(completedPhrase)}
+
+	return JsonResponse(s)
+
+# update phrase testing result
+@csrf_exempt
+def updatePhraseTestResult(request):
+	if request.method == 'POST':
+		received_json_data=json.loads(request.body.decode("utf-8"))
+
+		phrase = received_json_data["phrase"]
+		spell = received_json_data["spell"]
+		phraseObject = Phrase.objects.filter(phrase=phrase, spell=spell).first()
+		if phraseObject is not None and phraseObject.proficiency.count >= 0: 
+			if phraseObject.proficiency.count < 20:
+				newProficiency = phraseObject.proficiency.count + 5
+				phraseObject.proficiency_id = newProficiency + 1
+				phraseObject.save()
 
 		return JsonResponse({})
 
