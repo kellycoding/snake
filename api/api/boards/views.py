@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 import random, json
-from .models import Sentence, Homograph, Word, Level, Proficiency, Phrase
+from .models import Sentence, Homograph, Word, Level, Proficiency, Phrase, Text
 from django.views.decorators.csrf import csrf_exempt
 from django.db import transaction
 
@@ -175,4 +175,55 @@ def updatePhraseTestResult(request):
 				phraseObject.save()
 
 		return JsonResponse({})
+
+# log text from ui form
+@csrf_exempt
+def createText(request):
+	if request.method=='POST':
+		#received_json_data=json.loads(request.body)
+		received_json_data = json.loads(request.body.decode("utf-8"))
+
+		title = received_json_data["title"]
+		text = received_json_data["text"]
+		newText = Text.objects.create(title=title, text=text)
+
+		s = {}
+ 
+	return JsonResponse(s)
+
+def getTextList(request):
+	if request.method == 'GET':
+		textList = Text.objects.all().order_by("id")
+
+		s = []
+		for text in textList:
+			t = {'title': text.title,
+				'text': text.text
+				}
+			s.append(t)
+		result = {'texts': s}
+
+	return JsonResponse(result)
+
+def getTextById(request):
+	if request.method == 'GET':
+		id = request.GET.get("id")
+
+		text = Text.objects.filter(id=id).first()
+
+		s = {'title': text.title,
+				'text': text.text
+			}
+	return JsonResponse(s)
+
+def getTextByTitle(request):
+	if request.method == 'GET':
+		title = request.GET.get("title")
+
+		text = Text.objects.filter(title=title).first()
+
+		s = {'title': text.title,
+				'text': text.text
+			}
+	return JsonResponse(s)	
 

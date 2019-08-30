@@ -79,4 +79,14 @@ class Phrase(models.Model):
 					, 'proficiency':self.proficiency.toJson()
 				}
 
+# 课文
+class Text(models.Model):
+	title = models.CharField(max_length=200, unique=True)
+	text = models.TextField(blank=True, null=True)
+
+	def toJson(self):
+		return {'id': self.id, 'title':self.title, 'text':self.text}
+
+
+
 

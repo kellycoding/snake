@@ -31,5 +31,9 @@ urlpatterns = [
     path('snake/api/getRandomWord', views.getRandomWord),
     path('snake/api/updateTestResult', views.updateTestResult),
     path('snake/api/getRandomPhrase', views.getRandomPhrase),
-    path('snake/api/updatePhraseTestResult', views.updatePhraseTestResult)
+    path('snake/api/updatePhraseTestResult', views.updatePhraseTestResult),
+    path('snake/api/createText', views.createText),
+    path('snake/api/getTextList', views.getTextList),
+    path('snake/api/getTextById', views.getTextById),
+    path('snake/api/getTextByTitle', views.getTextByTitle),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

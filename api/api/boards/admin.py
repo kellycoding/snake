@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib import admin
-from .models import Level, Proficiency, Word, Homograph, Sentence, Phrase
+from .models import Level, Proficiency, Word, Homograph, Sentence, Phrase, Text
 
 class LevelAdmin(admin.ModelAdmin):
 	list_display = ('id', 'name', 'description')
@@ -47,4 +47,8 @@ admin.site.register(Sentence, SentenceAdmin)
 class PhraseAdmin(admin.ModelAdmin):
 	list_display = ('id', 'phrase', 'spell', 'level', 'proficiency')
 admin.site.register(Phrase, PhraseAdmin)
+
+class TextAdmin(admin.ModelAdmin):
+	list_display = ('id', 'title', 'text')
+admin.site.register(Text, TextAdmin)
 
