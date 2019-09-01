@@ -22,6 +22,8 @@ function loadtexts() {
 
 			td.innerHTML = text.title;
 
+			td.innerHTML = `<a href="text.html?id=${text.id}">${text.title}</a>`;
+
 			tr.appendChild(td);
 
 			tbody.appendChild(tr);
