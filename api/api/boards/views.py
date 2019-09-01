@@ -197,7 +197,9 @@ def getTextList(request):
 
 		s = []
 		for text in textList:
-			t = {'title': text.title,
+			t = {
+				'id': text.id,
+				'title': text.title,
 				'text': text.text
 				}
 			s.append(t)
@@ -211,7 +213,9 @@ def getTextById(request):
 
 		text = Text.objects.filter(id=id).first()
 
-		s = {'title': text.title,
+		s = {
+			'id': text.id,
+			'title': text.title,
 				'text': text.text
 			}
 	return JsonResponse(s)
